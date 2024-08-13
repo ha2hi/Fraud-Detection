@@ -16,7 +16,7 @@ def _get_time_data() -> str:
 def _get_trax_type() -> str:
     return random.choice(['CASH', 'CARD', 'BITCOIN'])
 
-def _get_amount() -> int: mnbv
+def _get_amount() -> int:
     return random.randint(0,100)
 
 def generate_transaction_data() -> dict:
