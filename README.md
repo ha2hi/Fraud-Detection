@@ -23,7 +23,13 @@
 ```docker exec -it root_kafka1_1 kafka-topics --bootstrap-server localhost:19091 --create --topic legit --partitions 3 --replication-factor 1```
 
 ### 참고
-1. 데이터 포맷이 JSON이 아닌 Avro인 이유
+1. 데이터 포맷이 JSON이 아닌 Avro를 사용한 이유
    - 이진 형식으로 데이터를 직렬화하기 때문에 데이터가 작고 효율적이다.
    - 스키마를 미리 지정하여 실수로 변경되는 것을 방지한다.
    - 다양한 언어로 데이터를 읽고 쓸 수 있다.
+
+
+### 환경정리
+```
+docker-compoer rm -svf
+```

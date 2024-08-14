@@ -1,0 +1,13 @@
+{
+        "namespace": "tranx.avro",
+        "type": "record",
+        "name": "TransactionRecord",
+        "fields": [
+                {"name": "ID", "type": "string"},
+                {"name": "TRANSACTION_TYPE",  "type": "string"},
+                {"name": "AMOUNT", "type": "int"},
+                {"name": "DATE", "type": "string"},
+                {"name": "CURRENCY", "type": "string"}
+
+        ]
+}

@@ -1,14 +1,28 @@
 from kafka import KafkaConsumer
-import json
+import io
+import avro.schema
+import avro.io
 
 BROKERS = ['localhost:9092', 'localhost:9093', 'localhost:9094']
 LEGIT_TOPIC_NAME = 'legit'
+SCHEMA_PATH = "tranx.avsc"
+SCHEMA = avro.schema.parse(open(SCHEMA_PATH).read())
 
+def avro_deserializer(value: bytes, schema: avro.schema.Schema=SCHEMA) -> dict:
+    bytes_reader = io.BytesIO(value)
+    decoder = avro.io.BinaryDecoder(bytes_reader)
+
+    reader = avro.io.DatumReader(SCHEMA)
+    message = reader.read(decoder)
+
+    return message
+    
 consumer = KafkaConsumer(LEGIT_TOPIC_NAME, 
                         bootstrap_servers=BROKERS,
-                        value_deserializer = lambda value : json.loads(value)
+                        value_deserializer = lambda rows: avro_deserializer(rows)
                         )
 
-for message in consumer:
-    msg = message.value
-    print(f'Legit Data : {msg}')
+for msg in consumer:
+    message = msg.value
+    
+    print(f'Legit Data : {message}')
